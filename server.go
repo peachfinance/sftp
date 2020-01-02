@@ -398,9 +398,6 @@ func (p sshFxpOpenPacket) respond(svr *Server) responsePacket {
 		return statusFromError(p, syscall.EINVAL)
 	}
 
-	if p.hasPflags(sshFxfAppend) {
-		osFlags |= os.O_APPEND
-	}
 	if p.hasPflags(sshFxfCreat) {
 		osFlags |= os.O_CREATE
 	}
@@ -414,6 +411,13 @@ func (p sshFxpOpenPacket) respond(svr *Server) responsePacket {
 	f, err := os.OpenFile(p.Path, osFlags, 0644)
 	if err != nil {
 		return statusFromError(p, err)
+	}
+
+	// Don't use O_APPEND flag as it conflicts with WriteAt.
+	if p.hasPflags(sshFxfAppend) {
+		if _, err := f.Seek(0, io.SeekEnd); err != nil {
+			return statusFromError(p, err)
+		}
 	}
 
 	handle := svr.nextHandle(f)
