@@ -1,4 +1,4 @@
-module github.com/pkg/sftp
+module github.com/peachfinance/sftp
 
 go 1.12
 
