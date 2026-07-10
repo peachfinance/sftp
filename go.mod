@@ -1,10 +1,18 @@
 module github.com/peachfinance/sftp
 
-go 1.12
+go 1.25.0
 
 require (
 	github.com/kr/fs v0.1.0
 	github.com/pkg/errors v0.8.1
-	github.com/stretchr/testify v1.4.0
-	golang.org/x/crypto v0.0.0-20190820162420-60c769a6c586
+	github.com/pkg/sftp v1.13.10
+	github.com/stretchr/testify v1.10.0
+	golang.org/x/crypto v0.52.0
+)
+
+require (
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
